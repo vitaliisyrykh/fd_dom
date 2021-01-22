@@ -22,16 +22,21 @@ function updateView() {
   img.setAttribute('src', currentSlide);
 }
 
-nextBtn.dispatchEvent( new MouseEvent('click') );
+nextBtn.dispatchEvent(new MouseEvent('click'));
 
 //==============================
 
 const btn = document.querySelector('#btn');
 
-const btnHandler = () => {
-  alert('you clicked!');
+const btnHandler = (eventObject) => {
+  console.group('Handler');
+  console.dir(eventObject.currentTarget); // Чей обработчик сработал
+  console.dir(eventObject.target); // Чей обработчик сработал
+  console.groupEnd();
 
-  btn.removeEventListener('click', btnHandler);
+  // eventObject.target.removeEventListener('click', btnHandler); // Что бы удалить обработчик
 };
 
 btn.addEventListener('click', btnHandler);
+document.body.addEventListener('click', btnHandler);
+window.addEventListener('click', btnHandler);
