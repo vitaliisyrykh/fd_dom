@@ -24,7 +24,8 @@ nextBtn.addEventListener('click', () => {
 });
 
 function updateView() {
-  img.setAttribute('src', slider.currentSlide);
+  const { currentSlide } = slider;
+  img.setAttribute('src', currentSlide);
 }
 
 updateView();
