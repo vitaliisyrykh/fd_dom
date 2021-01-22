@@ -14,21 +14,27 @@ const counter1 = createCounter(100);
 const counter2 = createCounter(50);
 
 /* 
-  Напишите функцию addNum(n),
+  Напишите функцию addNum(),
   которая вернёт другую функцию.
 
   Возвращенная функция должна складывать
-  получаемый аргумент m с аргументом n возвращающей функции.
+  получаемый аргумент m с аргументом  возвращающей функции.
 */
 
-function addNum(n) {
-  let acc = n;
-  return function (m) {
-    return (acc = acc + m);
+function createAdder() {
+  let state = 0; // состояние замкнуто.
+  return {
+    increment(value) {
+      return (state += value);
+    },
+    decrement(value) {
+      return (state -= value);
+    },
   };
 }
 
-const accumulator = addNum(10);
-accumulator(10); //20
-accumulator(50); //70
-accumulator(1); //71
+const accumulator1 = createAdder();
+console.log(accumulator1.increment(15));
+console.log(accumulator1.increment(10));
+
+const accumulator2 = createAdder(0);
