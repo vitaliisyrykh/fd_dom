@@ -13,15 +13,15 @@ const slider = new Slider(slides);
 const [prevBtn, nextBtn] = document.getElementsByTagName('button');
 const img = document.querySelector('.slide');
 
-prevBtn.addEventListener('click', () => {
-  slider.currentIndex = slider.prevIndex;
+const createBtnHandler = (direction) => () => {
+  slider.currentIndex =
+    slider[direction === 'next' ? 'nextIndex' : 'prevIndex'];
   updateView();
-});
+};
 
-nextBtn.addEventListener('click', () => {
-  slider.currentIndex = slider.nextIndex;
-  updateView();
-});
+prevBtn.addEventListener('click', createBtnHandler('prev'));
+
+nextBtn.addEventListener('click', createBtnHandler('next'));
 
 function updateView() {
   const { currentSlide } = slider;
