@@ -7,25 +7,31 @@ const slides = [
   'https://www.adobe.com/content/dam/cc/us/en/products/creativecloud/stock/stock-riverflow1-720x522.jpg.img.jpg',
   'https://images.freeimages.com/images/small-previews/5c6/sunset-jungle-1383333.jpg',
 ];
-
 const slider = new Slider(slides);
-
 const [prevBtn, nextBtn] = document.getElementsByTagName('button');
 const img = document.querySelector('.slide');
-
 const createBtnHandler = (direction) => () => {
   slider.currentIndex =
     slider[direction === 'next' ? 'nextIndex' : 'prevIndex'];
   updateView();
 };
-
 prevBtn.addEventListener('click', createBtnHandler('prev'));
-
 nextBtn.addEventListener('click', createBtnHandler('next'));
-
 function updateView() {
   const { currentSlide } = slider;
   img.setAttribute('src', currentSlide);
 }
 
-updateView();
+nextBtn.dispatchEvent( new MouseEvent('click') );
+
+//==============================
+
+const btn = document.querySelector('#btn');
+
+const btnHandler = () => {
+  alert('you clicked!');
+
+  btn.removeEventListener('click', btnHandler);
+};
+
+btn.addEventListener('click', btnHandler);
