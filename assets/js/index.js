@@ -26,21 +26,32 @@ nextBtn.dispatchEvent(new MouseEvent('click'));
 
 //==============================
 
-const btn = document.querySelector('#btn');
-
-const btnHandler = ({ currentTarget, target }) => {
-  console.group('Handler');
-  console.dir(currentTarget); // Чей обработчик сработал
-  console.dir(target); // Куда был клик
-  console.groupEnd();
-
-  // eventObject.target.removeEventListener('click', btnHandler); // Что бы удалить обработчик
-};
-
-btn.addEventListener('click', btnHandler);
-document.body.addEventListener('click', btnHandler);
-window.addEventListener('click', btnHandler);
-
 /* 
 Нажатие на кнопку выводить содержимое этой кнопки
 */
+
+const btn = document.querySelector('#btn');
+
+const btnHander = ({ target: { textContent } }) => {
+  console.log(textContent);
+};
+
+// btn.addEventListener('click', btnHander);
+//====================================
+const img1 = document.getElementById('img');
+const changeBtn = document.getElementById('change');
+const imgs = [
+  'https://static.toiimg.com/photo/72975551.cms',
+  'https://www.adobe.com/content/dam/cc/us/en/products/creativecloud/stock/stock-riverflow1-720x522.jpg.img.jpg',
+];
+
+const srcAttr = document.createAttribute('src');
+srcAttr.value = imgs[0];
+
+img1.setAttributeNode(srcAttr);
+
+function changeBtnHandler(event) {
+  srcAttr.value = srcAttr.value === imgs[0] ? imgs[1] : imgs[0];
+}
+
+changeBtn.addEventListener('click', changeBtnHandler);
