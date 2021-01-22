@@ -28,10 +28,10 @@ nextBtn.dispatchEvent(new MouseEvent('click'));
 
 const btn = document.querySelector('#btn');
 
-const btnHandler = (eventObject) => {
+const btnHandler = ({ currentTarget, target }) => {
   console.group('Handler');
-  console.dir(eventObject.currentTarget); // Чей обработчик сработал
-  console.dir(eventObject.target); // Чей обработчик сработал
+  console.dir(currentTarget); // Чей обработчик сработал
+  console.dir(target); // Куда был клик
   console.groupEnd();
 
   // eventObject.target.removeEventListener('click', btnHandler); // Что бы удалить обработчик
@@ -40,3 +40,7 @@ const btnHandler = (eventObject) => {
 btn.addEventListener('click', btnHandler);
 document.body.addEventListener('click', btnHandler);
 window.addEventListener('click', btnHandler);
+
+/* 
+Нажатие на кнопку выводить содержимое этой кнопки
+*/
