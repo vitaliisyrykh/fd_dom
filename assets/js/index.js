@@ -1,44 +1,17 @@
 'use strict';
 
-/* 
-По нажатию на кнопку 
-менять цвет div'а на соответствующий
-*/
-const div = document.getElementById('root');
-const btns = document.querySelectorAll('#root > button');
+const btn = document.querySelector('button');
+const div = document.querySelector('#root');
 
-
-
-// VARIANT 1 - BAD
-
-/* for (const btn of btns) {
-  btn.addEventListener('click', (event) => {
-    // event.target.dataset.color;
-    const {
-      target: {
-        dataset: { color },
-        parentNode,
-      },
-    } = event;
-
-    parentNode.style.backgroundColor = color;
-  });
-}  */
-
-// VARIANT 2 - GOOD
-
-const clickHandler = (event) => {
-  // event.target.dataset.color;
-  const {
-    target: {
-      dataset: { color },
-      parentNode,
-    },
-  } = event;
-
-  parentNode.style.backgroundColor = color;
+const clickHandler = (e) => {
+  console.group('el');
+  console.dir(e.currentTarget); // элемент чей обработчик сработал
+  console.groupEnd();
 };
 
-for (const btn of btns) {
-  btn.addEventListener('click', clickHandler);
-}
+btn.addEventListener('click', clickHandler);
+div.addEventListener('click', clickHandler, true);
+document.body.addEventListener('click', clickHandler);
+window.addEventListener('click', clickHandler, {
+  capture: true,
+});
