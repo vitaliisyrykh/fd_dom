@@ -4,7 +4,7 @@ const data = [
     name: '20st Amendment Brewery & Restaurant',
     description: 'fedsersd',
     profilePicture:
-      'ht//www.ur.com/preview/500-450/content/files/mod.happyhour/e646bf59c47247098a660704f84644a2.jpg',
+      '.com/preview/500-450/content/files/mod.happyhour/e646bf59c47247098a660704f84644a2.jpg',
   },
   {
     id: 2,
