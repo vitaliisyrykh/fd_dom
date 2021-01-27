@@ -1,11 +1,7 @@
 'use strict';
 
 const cardContainer = document.getElementById('root');
-
-console.log(data);
-
 const HTMLLIElements = data.map((place) => createPlaceCardElement(place));
-
 cardContainer.append(...HTMLLIElements);
 
 /**
@@ -14,12 +10,29 @@ cardContainer.append(...HTMLLIElements);
  * @returns {HTMLLIElement}
  */
 function createPlaceCardElement(place) {
+  const { description, name } = place;
+
   const wrapper = document.createElement('li');
   wrapper.classList.add('cardWrapper');
 
   const article = document.createElement('article');
   article.classList.add('cardContainer');
 
+  const heading = document.createElement('h2');
+  heading.classList.add('cardName');
+  // heading.textContent = place.name;
+
+  const descriptionElem = document.createElement('p');
+  descriptionElem.classList.add('cardDescription');
+  descriptionElem.append(document.createTextNode(description));
+
+  heading.append(document.createTextNode(name));
+  article.append(createCardImage(place), heading, descriptionElem);
+  wrapper.append(article);
+  return wrapper; //htmllielement
+}
+
+function createCardImage(place) {
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('imageWrapper');
   imageWrapper.style.backgroundColor = stringToColour(place.name);
@@ -29,27 +42,19 @@ function createPlaceCardElement(place) {
   const initialsContent = place.name[0];
   initials.append(document.createTextNode(initialsContent));
 
-  const placeImg = document.createElement('img'); // = new Image();
-  placeImg.setAttribute('src', place.profilePicture);
-  placeImg.setAttribute('alt', place.name);
-  placeImg.classList.add('cardImage', 'imagePlacement');
-
-  placeImg.addEventListener('error', imageErrorhandler);
+  const placeImg = createImage(place);
 
   imageWrapper.append(initials, placeImg);
+  return imageWrapper;
+}
 
-  const heading = document.createElement('h2');
-  heading.classList.add('cardName');
-  // heading.textContent = place.name;
-
-  const description = document.createElement('p');
-  description.classList.add('cardDescription');
-  description.append(document.createTextNode(place.description));
-
-  heading.append(document.createTextNode(place.name));
-  article.append(imageWrapper, heading, description);
-  wrapper.append(article);
-  return wrapper; //htmllielement
+function createImage({ profilePicture, name }) {
+  const img = document.createElement('img'); // = new Image();
+  img.setAttribute('src', profilePicture);
+  img.setAttribute('alt', name);
+  img.classList.add('cardImage', 'imagePlacement');
+  img.addEventListener('error', imageErrorhandler);
+  return img;
 }
 
 /* 
@@ -66,6 +71,7 @@ function imageErrorhandler({ target }) {
   UTILS
 
 */
+
 // DONT TRUST THIS CODE. TAKEN FROM STACKOVERFLOW
 function stringToColour(str) {
   let hash = 0;
