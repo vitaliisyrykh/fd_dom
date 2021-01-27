@@ -44,7 +44,7 @@ function createCardImage(place) {
 
   const placeImg = createImage(place);
 
-  imageWrapper.append(initials, placeImg);
+  imageWrapper.append(initials);
   return imageWrapper;
 }
 
@@ -53,7 +53,8 @@ function createImage({ profilePicture, name }) {
   img.setAttribute('src', profilePicture);
   img.setAttribute('alt', name);
   img.classList.add('cardImage', 'imagePlacement');
-  img.addEventListener('error', imageErrorhandler);
+  img.addEventListener('error', imageErrorHandler);
+  img.addEventListener('load', imageLoadHandler);
   return img;
 }
 
@@ -62,8 +63,12 @@ function createImage({ profilePicture, name }) {
   EVENT LISTENERS
 
 */
-function imageErrorhandler({ target }) {
+function imageErrorHandler({ target }) {
   target.remove();
+}
+
+function imageLoadHandler(event) {
+  /* magic to append img */
 }
 
 /* 
