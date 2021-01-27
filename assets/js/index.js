@@ -1,44 +1,40 @@
 'use strict';
-/* 
-const btn = document.querySelector('button');
-const div = document.querySelector('#root');
 
-const clickHandler = (e) => {
-  console.group('el');
-  console.dir(e.currentTarget); // элемент чей обработчик сработал
-  console.groupEnd();
-};
+const cardContainer = document.getElementById('root');
 
-btn.addEventListener('click', clickHandler);
-div.addEventListener('click', clickHandler, true);
-document.body.addEventListener('click', clickHandler);
-window.addEventListener('click', clickHandler, {
-  capture: true,
-});
+console.log(data);
+
+const HTMLLIElements = data.map((place) => createPlaceCardElement(place));
+
+cardContainer.append(...HTMLLIElements);
+
+/**
+ *
+ * @param {object} place
+ * @returns {HTMLLIElement}
  */
+function createPlaceCardElement(place) {
+  const wrapper = document.createElement('li');
+  wrapper.classList.add('cardWrapper');
 
-const sumContext = {
-  a: 10,
-  b: 20,
-  c: 30,
-};
+  const article = document.createElement('article');
+  article.classList.add('cardContainer');
 
-function sum(...args) {
-  console.log(this);
+  const placeImg = document.createElement('img'); // = new Image();
+  placeImg.setAttribute('src', place.profilePicture);
+  placeImg.setAttribute('alt', place.name);
+  placeImg.classList.add('cardImage');
+
+  const heading = document.createElement('h2');
+  heading.classList.add('cardName');
+  // heading.textContent = place.name;
+
+  const description = document.createElement('p');
+  description.classList.add('cardDescription');
+  description.append(document.createTextNode(place.description));
+
+  heading.append(document.createTextNode(place.name));
+  article.append(placeImg, heading, description);
+  wrapper.append(article);
+  return wrapper; //htmllielement
 }
-sum(123, 123, 123, 123, 123, 1234);
-
-const sumWithThis = sum.bind(sumContext);
-
-sumWithThis();
-
-const data = [1, 2, 3];
-function test() {
-  console.log(this)
-}
-
-test();
-
-const newTestFuncWithContext = test.bind(window);
-
-data.forEach(newTestFuncWithContext);

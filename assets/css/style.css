@@ -1,0 +1,36 @@
+@import './reset.css';
+
+* {
+  box-sizing: border-box;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.cardWrapper {
+  border: 5px solid;
+  margin: 2rem 1rem;
+}
+
+.cardContainer {
+  width: 320px;
+  text-align: center;
+}
+
+.cardImage {
+  width: inherit;
+  height: 320px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.cardName {
+  margin: 10px 0;
+}
+
+.cardDescription {
+  font-weight: bold;
+}
