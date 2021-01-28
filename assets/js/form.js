@@ -1,5 +1,7 @@
 'use strict';
 
+const state = [];
+
 const form = document.getElementById('root-form');
 
 form.addEventListener('submit', (e) => {
@@ -10,12 +12,12 @@ form.addEventListener('submit', (e) => {
   } = e;
 
   console.dir(emailInput.value); // form
+
   target.reset();
 });
 
-document.body.addEventListener('click', (e) => {
-  e.stopPropagation(); // запрещает всплытие события
-  console.log(e.path);
-});
-
-window.addEventListener('click', () => console.log('window click'));
+/* Пушить в массив значение input'а при сабмите формы */
+/* Рендерить на странице то, что было введено в форму */
+/* Если значение инпута пустое - ничего не делать */
+/* Кнопка удаления у li'шки - удаляет элемент со стрн и 
+    его значение из массива */
