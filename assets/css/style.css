@@ -15,6 +15,12 @@
   font-size: 2rem;
   font-weight: bold;
 }
+
+.imagePlaceholder:empty::after,
+.cardName:empty::after {
+  content: 'Unknown';
+}
+
 .cardsContainer {
   display: flex;
   flex-flow: row wrap;

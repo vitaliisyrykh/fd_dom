@@ -1,8 +1,10 @@
 'use strict';
 
-const cardContainer = document.getElementById('root');
-const HTMLLIElements = data.map((place) => createPlaceCardElement(place));
-cardContainer.append(...HTMLLIElements);
+const cardContainer = document.getElementById('root'); // ul
+
+const cards = data.map((place) => createPlaceCardElement(place)); // создаем li
+
+cardContainer.append(...cards); // добавляем li в ul
 
 /**
  *
@@ -12,69 +14,91 @@ cardContainer.append(...HTMLLIElements);
 function createPlaceCardElement(place) {
   const { description, name } = place;
 
-  const wrapper = document.createElement('li');
-  wrapper.classList.add('cardWrapper');
+  const p = createElement('p', { classNames: ['cardDescription'] }, [
+    document.createTextNode(description || ''),
+  ]);
 
-  const article = document.createElement('article');
-  article.classList.add('cardContainer');
+  const h2 = createElement('h2', { classNames: ['cardName'] }, [
+    document.createTextNode(name),
+  ]);
 
-  const heading = document.createElement('h2');
-  heading.classList.add('cardName');
-  // heading.textContent = place.name;
+  const img = createCardImage(place);
 
-  const descriptionElem = document.createElement('p');
-  descriptionElem.classList.add('cardDescription');
-  descriptionElem.append(document.createTextNode(description));
+  const article = createElement('article', { classNames: ['cardContainer'] }, [
+    img,
+    h2,
+    p,
+  ]);
 
-  heading.append(document.createTextNode(name));
-  article.append(createCardImage(place), heading, descriptionElem);
-  wrapper.append(article);
+  const wrapper = createElement('li', { classNames: ['cardWrapper'] }, [
+    article,
+  ]);
+
   return wrapper; //htmllielement
 }
 
 function createCardImage(place) {
+  const { name, id } = place;
+
   const imageWrapper = document.createElement('div');
+  imageWrapper.setAttribute('id', `wrapper${id}`); // устанавливаем  id для контейнер картинки
   imageWrapper.classList.add('imageWrapper');
-  imageWrapper.style.backgroundColor = stringToColour(place.name);
+  imageWrapper.style.backgroundColor = stringToColour(name);
 
   const initials = document.createElement('div');
   initials.classList.add('imagePlaceholder', 'imagePlacement');
-  const initialsContent = place.name[0];
-  initials.append(document.createTextNode(initialsContent));
+  initials.append(document.createTextNode(name[0] || ''));
 
-  const placeImg = createImage(place);
+  createImage(place);
 
   imageWrapper.append(initials);
   return imageWrapper;
 }
 
-function createImage({ profilePicture, name }) {
+function createImage({ profilePicture, name, id }) {
   const img = document.createElement('img'); // = new Image();
   img.setAttribute('src', profilePicture);
   img.setAttribute('alt', name);
+  img.dataset.id = id; // даём картинки её id
   img.classList.add('cardImage', 'imagePlacement');
   img.addEventListener('error', imageErrorHandler);
   img.addEventListener('load', imageLoadHandler);
-  return img;
+}
+
+/**
+ *
+ * @param {string} type
+ * @param {object} options
+ * @param {string[]} options.classNames
+ * @param {function} options.onClick
+ * @param {HTMLElement[]} children
+ */
+function createElement(type, { classNames, onClick }, children) {
+  const elem = document.createElement(type);
+  elem.classList.add(...classNames);
+  elem.onclick = onClick;
+  elem.append(...children);
+  return elem;
 }
 
 /* 
-
   EVENT LISTENERS
-
 */
 function imageErrorHandler({ target }) {
   target.remove();
 }
 
-function imageLoadHandler(event) {
-  /* magic to append img */
+function imageLoadHandler({
+  target: {
+    dataset: { id },
+  },
+  target,
+}) {
+  document.getElementById(`wrapper${id}`).append(target);
 }
 
 /* 
-
   UTILS
-
 */
 
 // DONT TRUST THIS CODE. TAKEN FROM STACKOVERFLOW
