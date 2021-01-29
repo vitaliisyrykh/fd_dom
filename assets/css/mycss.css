@@ -1,0 +1,54 @@
+@import "./reset.css";
+
+* {
+  box-sizing: border-box;
+}
+.cardsContainer{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.cardWrapper {
+  display: flex;
+  align-items: stretch;
+  border: 5px solid;
+  margin: 2rem 1rem;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  text-align: center;
+}
+
+.imageWrapper {
+  width: inherit;
+  height: 80%;
+  position: relative;
+   overflow: hidden; 
+}
+
+/* .imagePlacement {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+} */
+
+.cardImage {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  object-position: top;
+}
+
+.cardName {
+  margin: 10px 0;
+}
+
+.cardDescription {
+  font-weight: bold;
+}
