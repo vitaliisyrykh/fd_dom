@@ -20,13 +20,16 @@ function createUserCardElement(user) {
   const h4 = createElement("h4", { classNames: ["cardLastName"] }, [
     document.createTextNode(lastName),
   ]);
-  //const divIcons = createElement('div',{classNames:['iconsSocialWrapper']});
+  const icons = createIcons();
+  const divIcons = createElement('div',{classNames:['iconsSocialWrapper']},[icons]);
+  
   const img = createCardImage(user);
   const article = createElement("article", { classNames: ["cardContainer"] }, [
     img,
     h3,
     h4,
     p,
+    divIcons,
   ]);
   const li = createElement("li", { classNames: ["cardNames"] }, [article]);
   return li;
@@ -94,3 +97,16 @@ function createElement(type, { classNames, onClick }, children) {
   elem.append(...children);
   return elem;
 }
+
+/* function stringToColour(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let colour = '#';
+  for (let i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xff;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+} */
