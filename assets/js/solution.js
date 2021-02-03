@@ -2,6 +2,10 @@
 /* new URL('https://www.facebook.com/DwayneJohnson'); // {hostname}
 new Map().set('www.facebook.com', 'src to fb icon'); // key - hostname
  */
+const supportedSocialNetworks = new Map();
+supportedSocialNetworks.set("www.facebook.com", "./assets/icons/facebook.svg");
+supportedSocialNetworks.set("twitter.com", "./assets/icons/instagram.svg");
+supportedSocialNetworks.set("www.instagram.com", "./assets/icons/twitter.svg");
 
 const cardContainer = document.getElementById("root");
 
@@ -20,8 +24,8 @@ function createUserCardElement(user) {
   const h4 = createElement("h4", { classNames: ["cardLastName"] }, [
     document.createTextNode(lastName),
   ]);
-  const icons = createIcons();
-  const divIcons = createElement('div',{classNames:['iconsSocialWrapper']},[icons]);
+    const icons = createIcons(user.contacts);
+  const divIcons = createElement('div',{classNames:['iconsSocialWrapper']},[...icons]);  
   
   const img = createCardImage(user);
   const article = createElement("article", { classNames: ["cardContainer"] }, [
@@ -31,16 +35,37 @@ function createUserCardElement(user) {
     p,
     divIcons,
   ]);
-  const li = createElement("li", { classNames: ["cardNames"] }, [article]);
+  const li = createElement("li", { classNames: ["cardWrapper"] }, [article]);
   return li;
 }
+
+function imageErrorHandler({ target }) {
+  target.remove();
+}
+
+function imageLoadHandler({
+  target: {
+    dataset: { id },
+  },
+  target,
+}) {
+  document.getElementById(`wrapper${id}`).append(target);
+}
+
 
 function createCardImage(user) {
   const { firstName, id } = user;
   const imgWrapper = document.createElement("div");
   imgWrapper.setAttribute("id", `wrapper${id}`, `name = ${firstName}`);
   imgWrapper.classList.add("imageWrapper");
+  const initials = document.createElement('div');
+  initials.classList.add('imagePlaceholder', 'imagePlacement');
+  initials.append(document.createTextNode(firstName[0] || ''));
+  
   createImage(user);
+  
+  imgWrapper.append(initials);
+  
   return imgWrapper;
 }
 
@@ -50,12 +75,11 @@ function createImage({ profilePicture, name, id }) {
   img.setAttribute("alt", name);
   img.dataset.id = id;
   img.classList.add("cardImage", "imagePlacement");
+  img.addEventListener('error', imageErrorHandler);
+  img.addEventListener('load', imageLoadHandler);
 }
 
-const supportedSocialNetworks = new Map()
-  .set("www.facebook.com", "./assets/icons/facebook.svg")
-  .set("twitter.com", "./assets/icons/instagram.svg")
-  .set("www.instagram.com", "./assets/icons/twitter.svg");
+
 
 const [icons] = responseData.map((user) => createIcons(user.contacts));
 
@@ -69,11 +93,14 @@ function createIcons(contacts) {
     const { hostname } = new URL(contact);
 
     if (supportedSocialNetworks.has(hostname)) {
-      const cssClasses = supportedSocialNetworks.get(hostname);
+      const srcImg = supportedSocialNetworks.get(hostname);
 
       const a = document.createElement("a");
       a.setAttribute("href", contact);
-      a.setAttribute("class", cssClasses);
+      
+      const img = document.createElement("img");
+      img.setAttribute("src",srcImg);
+      a.append(img);
       return a;
     }
     return;
@@ -98,7 +125,7 @@ function createElement(type, { classNames, onClick }, children) {
   return elem;
 }
 
-/* function stringToColour(str) {
+ function stringToColour(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -109,4 +136,4 @@ function createElement(type, { classNames, onClick }, children) {
     colour += ('00' + value.toString(16)).substr(-2);
   }
   return colour;
-} */
+} 
