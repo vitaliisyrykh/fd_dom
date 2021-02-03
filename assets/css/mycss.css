@@ -30,7 +30,6 @@
   overflow: hidden;
 }
 .imagePlaceholder{
-  background-color: black;
   color: white;
   display: flex;
   justify-content: center;
@@ -46,12 +45,23 @@
   
 }
 
-.cardName {
-  margin: 10px 0;
+.nameWrapper{
+  padding: 10px;
+  display: flex;
+  justify-content:center;
+}
+.iconsSocialWrapper{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+.nameMargin{
+  margin: 0 5px;
 }
 
 .cardDescription {
   font-weight: bold;
+  padding: 10px;
 }
 
  .imagePlacement {
