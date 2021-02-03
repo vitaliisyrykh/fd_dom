@@ -3,6 +3,8 @@ function createCardImage(user) {
   const imgWrapper = document.createElement("div");
   imgWrapper.setAttribute("id", `wrapper${id}`, `name = ${firstName}`);
   imgWrapper.classList.add("imageWrapper");
+  imgWrapper.style.backgroundColor = stringToColour(firstName);
+  
   const initials = document.createElement('div');
   initials.classList.add('imagePlaceholder', 'imagePlacement');
   initials.append(document.createTextNode(firstName[0] || ''));
