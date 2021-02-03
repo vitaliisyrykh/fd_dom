@@ -22,5 +22,6 @@ function createUserCardElement(user) {
     divIcons,
   ]);
   const li = createElement("li", { classNames: ["cardWrapper"] }, [article]);
+  li.setAttribute("name", firstName);
   return li;
 }
