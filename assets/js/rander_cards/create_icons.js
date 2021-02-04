@@ -7,15 +7,12 @@ function createIcons(contacts) {
     const { hostname } = new URL(contact);
 
     if (supportedSocialNetworks.has(hostname)) {
-      const srcImg = supportedSocialNetworks.get(hostname);
+      const svg = supportedSocialNetworks.get(hostname);
 
       const a = document.createElement("a");
       a.setAttribute("href", contact);
-      
-      const img = document.createElement("img");
-      img.setAttribute("src",srcImg);
-      img.classList.add('icons')
-      a.append(img);
+      a.classList.add("iconsSocial");
+      a.innerHTML=svg;
       return a;
     }
     return;
