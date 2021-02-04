@@ -14,6 +14,7 @@ function createIcons(contacts) {
       
       const img = document.createElement("img");
       img.setAttribute("src",srcImg);
+      img.classList.add('icons')
       a.append(img);
       return a;
     }
