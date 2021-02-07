@@ -12,7 +12,7 @@ function createIcons(contacts) {
       const a = document.createElement("a");
       a.setAttribute("href", contact);
       a.classList.add("iconsSocial");
-      a.innerHTML=svg;
+      a.innerHTML = svg;
       return a;
     }
     return;

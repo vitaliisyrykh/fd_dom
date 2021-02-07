@@ -4,15 +4,15 @@ function createCardImage(user) {
   imgWrapper.setAttribute("id", `wrapper${id}`, `name = ${firstName}`);
   imgWrapper.classList.add("imageWrapper");
   imgWrapper.style.backgroundColor = stringToColour(firstName);
-  
-  const initials = document.createElement('div');
-  initials.classList.add('imagePlaceholder', 'imagePlacement');
-  initials.append(document.createTextNode(firstName[0] || ''));
-  
+
+  const initials = document.createElement("div");
+  initials.classList.add("imagePlaceholder", "imagePlacement");
+  initials.append(document.createTextNode(firstName[0] || ""));
+
   createImage(user);
-  
+
   imgWrapper.append(initials);
-  
+
   return imgWrapper;
 }
 
@@ -22,6 +22,6 @@ function createImage({ profilePicture, name, id }) {
   img.setAttribute("alt", name);
   img.dataset.id = id;
   img.classList.add("cardImage", "imagePlacement");
-  img.addEventListener('error', imageErrorHandler);
-  img.addEventListener('load', imageLoadHandler);
+  img.addEventListener("error", imageErrorHandler);
+  img.addEventListener("load", imageLoadHandler);
 }
